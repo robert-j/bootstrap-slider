@@ -623,7 +623,11 @@ const windowIsDefined = (typeof window === "object");
 			this.eventToCallbackMap = {};
 			this.sliderElem.id = this.options.id;
 
-			this.touchCapable = 'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch);
+			this.touchCapable = 'ontouchstart' in window
+				|| (window.DocumentTouch && document instanceof window.DocumentTouch)
+				|| window.TouchEvent
+				|| (window.MSPointerEvent && window.navigator.msMaxTouchPoints > 0)
+				|| (window.PointerEvent && window.navigator.maxTouchPoints > 0);
 
 			this.touchX = 0;
 			this.touchY = 0;
